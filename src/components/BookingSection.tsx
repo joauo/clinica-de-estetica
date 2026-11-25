@@ -150,37 +150,8 @@ export function BookingSection({
               </div>
             </div>
 
-            <div className="rounded-[18px] bg-[var(--color-beige-soft)] border border-[var(--color-sand)] p-6 flex flex-col justify-between gap-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-1">
-                    {booking.locationEyebrow}
-                  </p>
-                  <p className="text-[16px] font-medium text-[var(--color-text)] leading-[1.4]">
-                    {contact.address} — {contact.cityState}
-                  </p>
-                  <p className="text-[14px] text-[var(--color-text-secondary)] mt-1">
-                    {contact.zipCode} · {contact.addressDetails}
-                  </p>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-[var(--color-white)] border border-[var(--color-sand)] flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4 text-[var(--color-primary-active)]" />
-                </div>
-              </div>
-
+            <div className="flex-1 min-h-[280px] rounded-[18px] overflow-hidden border border-[var(--color-sand)] bg-[var(--color-surface)] flex">
               <ClinicLocationMap />
-
-              <div className="pt-3 border-t border-[var(--color-sand)]/70 flex items-center justify-between gap-3 text-[13px] text-[var(--color-text-secondary)]">
-                <span>{booking.locationNote}</span>
-                <a
-                  href={contact.googleMapsLinkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-[var(--color-brown)] hover:underline whitespace-nowrap shrink-0"
-                >
-                  {booking.mapLinkLabel}
-                </a>
-              </div>
             </div>
           </div>
 

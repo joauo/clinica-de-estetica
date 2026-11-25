@@ -61,7 +61,7 @@ export function ClinicLocationMap() {
 
   if (MAPS_API_KEY && MAPS_API_KEY !== "MY_GOOGLE_MAPS_API_KEY") {
     return (
-      <div className="w-full h-[240px] rounded-xl overflow-hidden border border-[var(--color-sand)] bg-[var(--color-white)]">
+      <div className="w-full h-full min-h-[280px] bg-[var(--color-white)]">
         <APIProvider
           apiKey={MAPS_API_KEY}
           libraries={["marker"]}
@@ -72,6 +72,7 @@ export function ClinicLocationMap() {
             mapId="DEMO_MAP_ID"
             defaultCenter={contact.coordinates}
             defaultZoom={16}
+            disableDefaultUI={true}
             gestureHandling="cooperative"
             internalUsageAttributionIds={["gmp_mcp_codeassist_v1_aistudio"]}
             className="w-full h-full"
@@ -84,7 +85,7 @@ export function ClinicLocationMap() {
   }
 
   return (
-    <div className="w-full h-[240px] rounded-xl overflow-hidden border border-[var(--color-sand)] bg-[var(--color-white)]">
+    <div className="w-full h-full min-h-[280px] bg-[var(--color-white)]">
       <iframe
         title={`Mapa de localização — ${brand.name}`}
         src={contact.googleMapsEmbedUrl}
