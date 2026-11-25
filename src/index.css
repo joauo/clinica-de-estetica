@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #BA9B6E;
+  --color-primary-hover: #A8895F;
+  --color-primary-active: #96764F;
+
+  --color-brown: #45251A;
+  --color-beige: #E3DCD2;
+  --color-beige-soft: #F4F1EC;
+  --color-champagne: #E8E1D7;
+  --color-sand: #DCD2C5;
+
+  --color-white: #FEFEFE;
+  --color-surface: #F7F6F4;
+  --color-border: #EAE8E5;
+
+  --color-text: #252321;
+  --color-text-secondary: #55504B;
+  --color-text-muted: #706A64;
+
+  --color-error: #B94A48;
+  --color-success: #506F55;
+
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .font-serif-display {
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+}
+
+.font-serif-display {
+  font-family: var(--font-heading);
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

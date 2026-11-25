@@ -1,0 +1,8 @@
+{
+  "name": "Clinica estetica ",
+  "description": "Crie logotipos exclusivos em até 4K a partir de uma descrição e transforme sua identidade visual em uma animação cinematográfica.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
