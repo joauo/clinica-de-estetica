@@ -1,99 +1,49 @@
-import { useEffect, useRef, useState } from "react";
-import { animate, useInView } from "motion/react";
+import { motion } from "motion/react";
 import { Check } from "lucide-react";
-import { ABOUT_METRICS, CLINIC_INFO } from "../data/clinicData";
-
-const INSTITUTIONAL_PILLARS = [
-  "Protocolos autorais baseados em evidência científica e anatomia facial.",
-  "Equipamentos de última geração com manutenção certificada.",
-  "Atendimento privativo, tempo de consulta estendido e pós-procedimento dedicado.",
-];
-
-interface AnimatedMetricValueProps {
-  prefix?: string;
-  target: number;
-  suffix?: string;
-}
-
-function AnimatedMetricValue({
-  prefix = "",
-  target,
-  suffix = "",
-}: AnimatedMetricValueProps) {
-  const ref = useRef<HTMLParagraphElement | null>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.4 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) {
-      setDisplayValue(target);
-      return;
-    }
-
-    const controls = animate(0, target, {
-      duration: 1.4,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (latest) => {
-        setDisplayValue(Math.round(latest));
-      },
-    });
-
-    return () => controls.stop();
-  }, [isInView, target]);
-
-  const formatted = new Intl.NumberFormat("pt-BR").format(displayValue);
-
-  return (
-    <p
-      ref={ref}
-      className="font-mono-tabular text-[24px] font-semibold tracking-[-0.02em] text-[#45251A]"
-    >
-      {prefix}
-      {formatted}
-      {suffix}
-    </p>
-  );
-}
+import { SITE_CONFIG } from "../config";
 
 export function AboutSection() {
+  const { about, brand } = SITE_CONFIG;
+  const description = about.descriptionTemplate.replace(
+    "{clinicName}",
+    brand.name
+  );
+
   return (
-    <section id="sobre" className="bg-[#F4F1EC] py-16 lg:py-20 border-t border-[#EAE8E5]">
-      <div className="w-[min(100%-32px,1200px)] mx-auto">
+    <section
+      id="sobre"
+      className="bg-[var(--color-beige-soft)] py-16 lg:py-20 border-t border-[var(--color-border)]"
+    >
+      <div className="w-[min(100%-32px,1200px)] mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           <div className="lg:col-span-5">
             <div
               aria-hidden="true"
-              className="h-full min-h-[320px] lg:min-h-[400px] rounded-[20px] bg-gradient-to-br from-[#EAE3D8] via-[#E3DCD2] to-[#DCD2C5] border border-[#DCD2C5]"
+              className="h-full min-h-[320px] lg:min-h-[400px] rounded-[20px] bg-gradient-to-br from-[#EAE3D8] via-[#E3DCD2] to-[#DCD2C5] border border-[var(--color-sand)]"
             />
           </div>
 
-          <div className="lg:col-span-5 bg-[#FEFEFE] border border-[#EAE8E5] rounded-[20px] p-7 lg:p-9 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-[var(--color-white)] border border-[var(--color-border)] rounded-[20px] p-7 lg:p-9 flex flex-col justify-between">
             <div>
-              <p className="text-xs tracking-[0.08em] text-[#55504B] mb-2">
-                Sobre a Clínica
+              <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
+                {about.eyebrow}
               </p>
-              <h2 className="text-[28px] lg:text-[32px] font-medium leading-[1.2] tracking-[-0.02em] text-[#252321] mb-4">
-                Onde ciência estética e sofisticação se encontram
+              <h2 className="text-[32px] lg:text-[38px] font-semibold leading-[1.15] tracking-[-0.015em] text-[var(--color-text)] mb-4">
+                {about.title}
               </h2>
-              <p className="text-[14px] leading-[1.65] text-[#55504B] mb-6">
-                A {CLINIC_INFO.name} nasceu com o propósito de oferecer uma jornada estética serena, segura e altamente personalizada. Cada plano de cuidado é desenhado para preservar sua identidade, valorizando a harmonia natural sem exageros.
+              <p className="text-[15px] leading-[1.68] text-[var(--color-text-secondary)] mb-6">
+                {description}
               </p>
             </div>
 
-            <ul className="space-y-3 pt-5 border-t border-[#EAE8E5]">
-              {INSTITUTIONAL_PILLARS.map((point) => (
+            <ul className="space-y-3 pt-5 border-t border-[var(--color-border)]">
+              {about.pillars.map((point) => (
                 <li
                   key={point}
-                  className="flex items-start gap-2.5 text-[13px] leading-[1.55] text-[#252321]"
+                  className="flex items-start gap-2.5 text-[14px] leading-[1.6] text-[var(--color-text)]"
                 >
-                  <span className="w-5 h-5 rounded-full bg-[#F4F1EC] border border-[#DCD2C5] flex items-center justify-center shrink-0 mt-0.5">
-                    <Check className="w-3 h-3 text-[#8A6D43]" />
+                  <span className="w-5 h-5 rounded-full bg-[var(--color-beige-soft)] border border-[var(--color-sand)] flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 text-[var(--color-primary-active)]" />
                   </span>
                   <span>{point}</span>
                 </li>
@@ -102,28 +52,57 @@ export function AboutSection() {
           </div>
 
           <div className="lg:col-span-2 flex flex-col justify-between gap-6">
-            <div className="bg-[#FEFEFE] border border-[#EAE8E5] rounded-[20px] p-6 space-y-6 flex-1 flex flex-col justify-center">
-              {ABOUT_METRICS.map((metric) => (
-                <div
-                  key={metric.label}
-                  className="border-b border-[#EAE8E5] last:border-b-0 pb-4 last:pb-0"
+            <div className="bg-[var(--color-white)] border border-[var(--color-border)] rounded-[20px] p-6 space-y-6 flex-1 flex flex-col justify-center">
+              {about.metrics.map((metric, idx) => (
+                <motion.div
+                  key={metric.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.45, delay: idx * 0.08 }}
+                  className="border-b border-[var(--color-border)] last:border-b-0 pb-4 last:pb-0"
                 >
-                  <AnimatedMetricValue
-                    prefix={metric.prefix}
-                    target={metric.target}
-                    suffix={metric.suffix}
-                  />
-                  <p className="text-[12px] leading-[1.45] text-[#55504B] mt-1">
+                  <p className="font-serif-display text-[26px] font-semibold leading-[1.15] text-[var(--color-brown)] tabular-nums">
+                    {metric.value}
+                  </p>
+                  <p className="text-[13px] leading-[1.5] text-[var(--color-text-secondary)] mt-1">
                     {metric.label}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div
               aria-hidden="true"
-              className="hidden lg:block aspect-[4/3] w-full rounded-[18px] bg-[#E8E1D7] border border-[#DCD2C5]"
+              className="hidden lg:block aspect-[4/3] w-full rounded-[18px] bg-[var(--color-champagne)] border border-[var(--color-sand)]"
             />
+          </div>
+        </div>
+
+        {/* Bloco da Profissional */}
+        <div className="bg-[var(--color-white)] border border-[var(--color-border)] rounded-[20px] p-6 lg:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
+          <div className="md:col-span-4 lg:col-span-3">
+            <div
+              aria-hidden="true"
+              className="aspect-[4/5] w-full rounded-[16px] bg-gradient-to-br from-[#EAE3D8] via-[#E3DCD2] to-[#DCD2C5] border border-[var(--color-sand)]"
+            />
+          </div>
+
+          <div className="md:col-span-8 lg:col-span-9 space-y-3">
+            <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)]">
+              {about.professional.eyebrow}
+            </p>
+            <div>
+              <h3 className="text-[28px] lg:text-[32px] font-semibold leading-[1.15] text-[var(--color-text)]">
+                {about.professional.name}
+              </h3>
+              <p className="text-[14px] font-medium text-[var(--color-primary-active)] mt-1">
+                {about.professional.credentials}
+              </p>
+            </div>
+            <p className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] max-w-2xl">
+              {about.professional.bio}
+            </p>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@
   --color-primary-active: #96764F;
 
   --color-brown: #45251A;
+  --color-brown-hover: #5E3526;
   --color-beige: #E3DCD2;
   --color-beige-soft: #F4F1EC;
   --color-champagne: #E8E1D7;
@@ -16,15 +17,14 @@
   --color-border: #EAE8E5;
 
   --color-text: #252321;
-  --color-text-secondary: #55504B;
-  --color-text-muted: #706A64;
+  --color-text-secondary: #3E3A36;
+  --color-text-muted: #55504B;
 
   --color-error: #B94A48;
   --color-success: #506F55;
 
-  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 @layer base {
@@ -33,22 +33,18 @@
     background-color: var(--color-white);
     color: var(--color-text);
     font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, .font-serif-display {
+  h1, h2, h3, h4, .font-serif-display {
     font-family: var(--font-heading);
-    text-wrap: balance;
   }
 }
 
 .font-serif-display {
   font-family: var(--font-heading);
-}
-
-.font-mono-tabular {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
 }
 
 @media (prefers-reduced-motion: reduce) {
