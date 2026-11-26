@@ -1,16 +1,49 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { lazy, Suspense, useEffect, useState, type CSSProperties } from "react";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
-import { ServicesSection } from "./components/ServicesSection";
-import { BodyTreatmentsSection } from "./components/BodyTreatmentsSection";
-import { ResultsSection } from "./components/ResultsSection";
-import { AboutSection } from "./components/AboutSection";
-import { TestimonialsSection } from "./components/TestimonialsSection";
-import { FaqSection } from "./components/FaqSection";
-import { BookingSection } from "./components/BookingSection";
-import { Footer } from "./components/Footer";
-import { WhatsAppFloatingButton } from "./components/WhatsAppFloatingButton";
 import { SITE_CONFIG } from "./config";
+
+const ServicesSection = lazy(() =>
+  import("./components/ServicesSection").then((m) => ({
+    default: m.ServicesSection,
+  }))
+);
+const BodyTreatmentsSection = lazy(() =>
+  import("./components/BodyTreatmentsSection").then((m) => ({
+    default: m.BodyTreatmentsSection,
+  }))
+);
+const ResultsSection = lazy(() =>
+  import("./components/ResultsSection").then((m) => ({
+    default: m.ResultsSection,
+  }))
+);
+const AboutSection = lazy(() =>
+  import("./components/AboutSection").then((m) => ({
+    default: m.AboutSection,
+  }))
+);
+const TestimonialsSection = lazy(() =>
+  import("./components/TestimonialsSection").then((m) => ({
+    default: m.TestimonialsSection,
+  }))
+);
+const FaqSection = lazy(() =>
+  import("./components/FaqSection").then((m) => ({ default: m.FaqSection }))
+);
+const BookingSection = lazy(() =>
+  import("./components/BookingSection").then((m) => ({
+    default: m.BookingSection,
+  }))
+);
+const Footer = lazy(() =>
+  import("./components/Footer").then((m) => ({ default: m.Footer }))
+);
+const WhatsAppFloatingButton = lazy(() =>
+  import("./components/WhatsAppFloatingButton").then((m) => ({
+    default: m.WhatsAppFloatingButton,
+  }))
+);
 
 export default function App() {
   const [selectedProcedure, setSelectedProcedure] = useState<string>(
@@ -29,10 +62,20 @@ export default function App() {
       window.removeEventListener("gmp-quota-exceeded", onQuotaExceeded);
   }, []);
 
-  const handleSelectProcedure = (procedureName: string) => {
-    setSelectedProcedure(procedureName);
+  const scrollToBooking = (procedureName?: string) => {
+    if (procedureName) {
+      setSelectedProcedure(procedureName);
+    }
     const el = document.getElementById("agendamento");
     el?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleQuickBook = () => {
+    scrollToBooking();
+  };
+
+  const handleSelectProcedure = (procedureName: string) => {
+    scrollToBooking(procedureName);
   };
 
   const themeVars = {
@@ -60,6 +103,13 @@ export default function App() {
       style={themeVars}
       className="min-h-screen flex flex-col bg-[var(--color-white)] text-[var(--color-text)]"
     >
+      <a
+        href="#conteudo-principal"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:rounded-lg focus:bg-[var(--color-brown)] focus:text-[var(--color-white)] focus:text-sm focus:font-medium"
+      >
+        {SITE_CONFIG.navigation.skipToContentLabel}
+      </a>
+
       {mapsQuotaExceeded && (
         <div className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm">
           <span>
@@ -76,24 +126,30 @@ export default function App() {
           </span>
         </div>
       )}
-      <Header />
 
-      <main className="flex-1">
-        <HeroSection />
-        <ServicesSection onSelectProcedure={handleSelectProcedure} />
-        <BodyTreatmentsSection onSelectProcedure={handleSelectProcedure} />
-        <ResultsSection />
-        <AboutSection />
-        <TestimonialsSection />
-        <FaqSection />
-        <BookingSection
-          selectedProcedure={selectedProcedure}
-          onProcedureChange={setSelectedProcedure}
-        />
+      <Header onQuickBook={handleQuickBook} />
+
+      <main id="conteudo-principal" className="flex-1">
+        <HeroSection onQuickBook={handleQuickBook} />
+
+        <Suspense fallback={<div className="min-h-[480px]" aria-hidden="true" />}>
+          <ServicesSection onSelectProcedure={handleSelectProcedure} />
+          <BodyTreatmentsSection onSelectProcedure={handleSelectProcedure} />
+          <ResultsSection />
+          <AboutSection />
+          <TestimonialsSection />
+          <FaqSection />
+          <BookingSection
+            selectedProcedure={selectedProcedure}
+            onProcedureChange={setSelectedProcedure}
+          />
+        </Suspense>
       </main>
 
-      <Footer />
-      <WhatsAppFloatingButton />
+      <Suspense fallback={null}>
+        <Footer />
+        <WhatsAppFloatingButton />
+      </Suspense>
     </div>
   );
 }

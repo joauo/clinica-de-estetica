@@ -1,10 +1,17 @@
+import { useState } from "react";
 import { SITE_CONFIG } from "../config";
 
 export function Footer() {
   const { brand, contact, footer, legal, navigation } = SITE_CONFIG;
+  const [logoFailed, setLogoFailed] = useState(false);
 
-  const directWhatsappUrl = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
-    `Olá, gostaria de mais informações sobre os procedimentos da ${brand.name}.`
+  const sanitizedWhatsapp = contact.whatsappNumber.replace(/\D/g, "");
+  const message = footer.whatsappMessageTemplate.replace(
+    "{clinicName}",
+    brand.name
+  );
+  const directWhatsappUrl = `https://wa.me/${sanitizedWhatsapp}?text=${encodeURIComponent(
+    message
   )}`;
 
   return (
@@ -12,10 +19,16 @@ export function Footer() {
       <div className="w-[min(100%-32px,1200px)] mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-[var(--color-border)]">
           <div>
-            {brand.logoUrl ? (
+            {brand.logoUrl && !logoFailed ? (
               <img
                 src={brand.logoUrl}
                 alt={brand.name}
+                width={140}
+                height={36}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={() => setLogoFailed(true)}
                 className="h-9 w-auto object-contain"
               />
             ) : (
@@ -23,26 +36,29 @@ export function Footer() {
                 {brand.name}
               </span>
             )}
-            <p className="text-[14px] leading-[1.65] text-[var(--color-text-secondary)] mt-3 max-w-xs">
+            <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)] mt-3 max-w-xs">
               {brand.tagline}. {footer.description}
             </p>
           </div>
 
           <div>
-            <h3 className="text-[18px] font-semibold text-[var(--color-text)] mb-3.5">
+            <h3 className="text-[19px] font-semibold text-[var(--color-text)] mb-3.5">
               {footer.navHeading}
             </h3>
-            <ul className="space-y-2.5 text-[14px] text-[var(--color-text-secondary)]">
+            <ul className="space-y-1 text-[16px] text-[var(--color-text-secondary)]">
               <li>
-                <a href="#topo" className="hover:text-[var(--color-text)] transition-colors">
-                  Início
+                <a
+                  href="#topo"
+                  className="inline-flex items-center min-h-[40px] hover:text-[var(--color-text)] transition-colors"
+                >
+                  {navigation.homeLabel}
                 </a>
               </li>
               {navigation.links.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="hover:text-[var(--color-text)] transition-colors"
+                    className="inline-flex items-center min-h-[40px] hover:text-[var(--color-text)] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -52,12 +68,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-[18px] font-semibold text-[var(--color-text)] mb-3.5">
+            <h3 className="text-[19px] font-semibold text-[var(--color-text)] mb-3.5">
               {footer.contactHeading}
             </h3>
-            <ul className="space-y-2.5 text-[14px] text-[var(--color-text-secondary)]">
+            <ul className="space-y-2.5 text-[16px] text-[var(--color-text-secondary)]">
               <li className="tabular-nums">{contact.phoneDisplay}</li>
-              <li>{contact.email}</li>
+              <li className="break-all sm:break-normal">{contact.email}</li>
               <li>
                 {contact.address} · {contact.cityState}
               </li>
@@ -67,37 +83,39 @@ export function Footer() {
                   href={contact.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[var(--color-brown)] font-medium hover:underline"
+                  className="inline-flex items-center min-h-[40px] text-[var(--color-brown)] font-medium hover:underline"
                 >
-                  Instagram: {contact.instagramHandle}
+                  {footer.instagramPrefix} {contact.instagramHandle}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-[18px] font-semibold text-[var(--color-text)] mb-3.5">
+            <h3 className="text-[19px] font-semibold text-[var(--color-text)] mb-3.5">
               {footer.serviceHeading}
             </h3>
-            <p className="text-[14px] leading-[1.65] text-[var(--color-text-secondary)] mb-4">
+            <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)] mb-4">
               {contact.hours}
             </p>
             <a
               href={directWhatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center min-h-[44px] px-5 py-2 rounded-full bg-[var(--color-brown)] text-[var(--color-white)] text-[14px] font-medium hover:bg-[var(--color-brown-hover)] transition-colors"
+              className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-full bg-[var(--color-brown)] text-[var(--color-white)] text-[15px] font-medium hover:bg-[var(--color-brown-hover)] transition-colors"
             >
               {footer.whatsappButtonLabel}
             </a>
           </div>
         </div>
 
-        <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[13px] text-[var(--color-text-muted)]">
+        <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[14px] text-[var(--color-text-muted)]">
           <p>
             © {legal.copyrightYear} {brand.name}. {legal.copyrightText}
           </p>
-          <p>Responsável Técnico: {legal.technicalResponsible}</p>
+          <p>
+            {legal.technicalResponsibleLabel} {legal.technicalResponsible}
+          </p>
         </div>
       </div>
     </footer>

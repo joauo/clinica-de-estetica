@@ -1,5 +1,3 @@
-import heroBgImage from "./assets/images/hero-estetica.png";
-
 export const imagens = {
   harmonizacao: "https://i.imgur.com/3HM94wW.jpeg",
   toxina: "https://i.imgur.com/9NCOKyt.jpeg",
@@ -15,7 +13,7 @@ export const imagens = {
   sobre: "https://i.imgur.com/x8iyGas.jpeg",
   sobreDetalhe: "https://i.imgur.com/pKvgFpZ.jpeg",
   profissional: "https://i.imgur.com/pTnKhTY.jpeg",
-  hero: "",
+  hero: "https://i.imgur.com/i3ZJJ92.png",
 };
 
 export type ProcedureCategory =
@@ -54,6 +52,10 @@ export interface ResultCase {
   protocol: string;
   timeline: string;
   summary: string;
+  beforeImage?: string;
+  beforeImageAlt?: string;
+  afterImage?: string;
+  afterImageAlt?: string;
 }
 
 export interface TestimonialItem {
@@ -110,6 +112,7 @@ export const SITE_CONFIG = {
     whatsappNumber: "5500000000000",
     whatsappDefaultMessage:
       "Olá, gostaria de agendar uma avaliação e saber mais sobre os procedimentos.",
+    whatsappFloatingLabel: "WhatsApp",
     instagramHandle: "[@instagram_da_clinica]",
     instagramUrl: "https://instagram.com",
     email: "[contato@suaclinica.com.br]",
@@ -129,12 +132,15 @@ export const SITE_CONFIG = {
   },
 
   legal: {
+    technicalResponsibleLabel: "Responsável Técnico:",
     technicalResponsible: "[Nome do(a) Profissional · Registro Profissional]",
     copyrightYear: "2026",
     copyrightText: "Todos os direitos reservados.",
   },
 
   navigation: {
+    homeLabel: "Início",
+    skipToContentLabel: "Ir para o conteúdo principal",
     ctaLabel: "Quero agendar",
     links: [
       { label: "Procedimentos", href: "#servicos" },
@@ -148,7 +154,8 @@ export const SITE_CONFIG = {
   },
 
   hero: {
-    image: heroBgImage,
+    image: "/images/hero-estetica-desktop.webp",
+    imageMobile: "/images/hero-estetica-mobile.webp",
     imageAlt:
       "Atendimento facial de estética avançada em consultório iluminado",
     eyebrow: "Estética Facial e Corporal",
@@ -328,6 +335,8 @@ export const SITE_CONFIG = {
   },
 
   results: {
+    mostrarAntesDepois: false,
+    compactTitle: "[Resultados reais da clínica]",
     title: "Antes e depois com foco em naturalidade",
     subtitle:
       "Registros fotográficos padronizados que ilustram o acompanhamento clínico em diferentes etapas do tratamento.",
@@ -343,6 +352,10 @@ export const SITE_CONFIG = {
         timeline: "[Prazo de acompanhamento]",
         summary:
           "Registro de preenchimento estrutural e bioestímulo em paciente com queixa de perda de sustentação facial.",
+        beforeImage: "",
+        beforeImageAlt: "Registro fotográfico antes do protocolo facial",
+        afterImage: "",
+        afterImageAlt: "Registro fotográfico após o protocolo facial",
       },
       {
         id: "case-ultraformer",
@@ -351,6 +364,10 @@ export const SITE_CONFIG = {
         timeline: "[Prazo de acompanhamento]",
         summary:
           "Acompanhamento de flacidez leve na região do pescoço e mandíbula com associação de ultrassom e hidratação dérmica.",
+        beforeImage: "",
+        beforeImageAlt: "Registro fotográfico antes do ultrassom microfocado",
+        afterImage: "",
+        afterImageAlt: "Registro fotográfico após o ultrassom microfocado",
       },
       {
         id: "case-laser",
@@ -359,6 +376,10 @@ export const SITE_CONFIG = {
         timeline: "[Número de sessões]",
         summary:
           "Evolução fotográfica após sessões voltadas para manchas solares e poros dilatados.",
+        beforeImage: "",
+        beforeImageAlt: "Registro fotográfico antes das sessões de laser",
+        afterImage: "",
+        afterImageAlt: "Registro fotográfico após as sessões de laser",
       },
     ] as ResultCase[],
   },
@@ -484,10 +505,38 @@ export const SITE_CONFIG = {
     subtitle:
       "Envie seus dados pelo formulário para iniciar a conversa com a recepção pelo WhatsApp.",
     instagramButtonLabel: "Ver Instagram",
+    contactLabels: {
+      phone: "Telefone e WhatsApp",
+      address: "Endereço",
+      hours: "Horário de Atendimento",
+    },
     formTitle: "Solicitar horário",
     formSubtitle:
       "Os campos abaixo montam a mensagem pronta para você enviar no WhatsApp da clínica.",
     submitLabel: "Falar no WhatsApp",
+    fieldLabels: {
+      name: "Nome completo",
+      namePlaceholder: "Seu nome completo",
+      phone: "WhatsApp para retorno",
+      phonePlaceholder: "(00) 00000-0000",
+      procedure: "Procedimento de interesse",
+      procedureGroupFacial: "Procedimentos Faciais e Tecnologias",
+      procedureGroupBody: "Tratamentos Corporais",
+      period: "Preferência de horário",
+      notes: "Objetivos ou observações (opcional)",
+      notesPlaceholder:
+        "Conte o que gostaria de avaliar na consulta ou os melhores dias da semana.",
+    },
+    validationMessages: {
+      invalidName: "Informe seu nome completo para enviar a mensagem.",
+      invalidPhone:
+        "Informe um número de telefone ou WhatsApp válido com DDD.",
+    },
+    confirmation: {
+      title: "Mensagem pronta para envio no WhatsApp",
+      description: "Se a janela não abrir sozinha, use o botão abaixo.",
+      greetingTemplate: "Olá, gostaria de agendar uma avaliação na {clinicName}.",
+    },
     periods: [
       "Manhã (09h às 12h)",
       "Tarde (12h às 17h)",
@@ -501,6 +550,9 @@ export const SITE_CONFIG = {
     navHeading: "Navegação",
     contactHeading: "Contato",
     serviceHeading: "Atendimento",
+    instagramPrefix: "Instagram:",
     whatsappButtonLabel: "Falar no WhatsApp",
+    whatsappMessageTemplate:
+      "Olá, gostaria de mais informações sobre os procedimentos da {clinicName}.",
   },
 };

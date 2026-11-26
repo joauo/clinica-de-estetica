@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   APIProvider,
   AdvancedMarker,
@@ -58,42 +58,68 @@ function ClinicPinMarker() {
 
 export function ClinicLocationMap() {
   const { brand, contact } = SITE_CONFIG;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldLoadMap, setShouldLoadMap] = useState(false);
 
-  if (MAPS_API_KEY && MAPS_API_KEY !== "MY_GOOGLE_MAPS_API_KEY") {
-    return (
-      <div className="w-full h-full min-h-[280px] bg-[var(--color-white)]">
-        <APIProvider
-          apiKey={MAPS_API_KEY}
-          libraries={["marker"]}
-          language="pt-BR"
-          region="BR"
-        >
-          <GoogleMap
-            mapId="DEMO_MAP_ID"
-            defaultCenter={contact.coordinates}
-            defaultZoom={16}
-            disableDefaultUI={true}
-            gestureHandling="cooperative"
-            internalUsageAttributionIds={["gmp_mcp_codeassist_v1_aistudio"]}
-            className="w-full h-full"
-          >
-            <ClinicPinMarker />
-          </GoogleMap>
-        </APIProvider>
-      </div>
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setShouldLoadMap(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoadMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
     );
-  }
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const hasValidApiKey =
+    Boolean(MAPS_API_KEY) && MAPS_API_KEY !== "MY_GOOGLE_MAPS_API_KEY";
 
   return (
-    <div className="w-full h-full min-h-[280px] bg-[var(--color-white)]">
-      <iframe
-        title={`Mapa de localização · ${brand.name}`}
-        src={contact.googleMapsEmbedUrl}
-        loading="lazy"
-        allowFullScreen
-        referrerPolicy="strict-origin-when-cross-origin"
-        className="w-full h-full border-0"
-      />
+    <div
+      ref={containerRef}
+      className="w-full h-full min-h-[280px] bg-[var(--color-beige-soft)]"
+    >
+      {shouldLoadMap &&
+        (hasValidApiKey ? (
+          <APIProvider
+            apiKey={MAPS_API_KEY!}
+            libraries={["marker"]}
+            language="pt-BR"
+            region="BR"
+          >
+            <GoogleMap
+              mapId="DEMO_MAP_ID"
+              defaultCenter={contact.coordinates}
+              defaultZoom={16}
+              disableDefaultUI={true}
+              gestureHandling="cooperative"
+              internalUsageAttributionIds={["gmp_mcp_codeassist_v1_aistudio"]}
+              className="w-full h-full"
+            >
+              <ClinicPinMarker />
+            </GoogleMap>
+          </APIProvider>
+        ) : (
+          <iframe
+            title={`${brand.name} — ${contact.address}`}
+            src={contact.googleMapsEmbedUrl}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            className="w-full h-full border-0"
+          />
+        ))}
     </div>
   );
 }
