@@ -14,6 +14,12 @@ export const imagens = {
   sobreDetalhe: "https://i.imgur.com/pKvgFpZ.jpeg",
   profissional: "https://i.imgur.com/pTnKhTY.jpeg",
   hero: "https://i.imgur.com/i3ZJJ92.png",
+  resultado1Antes: "",
+  resultado1Depois: "",
+  resultado2Antes: "",
+  resultado2Depois: "",
+  resultado3Antes: "",
+  resultado3Depois: "",
 };
 
 export type ProcedureCategory =
@@ -335,14 +341,12 @@ export const SITE_CONFIG = {
   },
 
   results: {
-    mostrarAntesDepois: false,
-    compactTitle: "[Resultados reais da clínica]",
+    mostrarAntesDepois: true,
     title: "Antes e depois com foco em naturalidade",
     subtitle:
-      "Registros fotográficos padronizados que ilustram o acompanhamento clínico em diferentes etapas do tratamento.",
+      "Registros fotográficos padronizados que acompanham a evolução clínica em diferentes etapas do tratamento.",
     beforeLabel: "Antes",
     afterLabel: "Depois",
-    illustrativeCaption: "Exemplo ilustrativo",
     disclaimer: "Os resultados variam de pessoa para pessoa.",
     cases: [
       {
@@ -352,10 +356,12 @@ export const SITE_CONFIG = {
         timeline: "[Prazo de acompanhamento]",
         summary:
           "Registro de preenchimento estrutural e bioestímulo em paciente com queixa de perda de sustentação facial.",
-        beforeImage: "",
-        beforeImageAlt: "Registro fotográfico antes do protocolo facial",
-        afterImage: "",
-        afterImageAlt: "Registro fotográfico após o protocolo facial",
+        beforeImage: imagens.resultado1Antes,
+        beforeImageAlt:
+          "Registro antes do protocolo de Harmonização Facial e Bioestimuladores",
+        afterImage: imagens.resultado1Depois,
+        afterImageAlt:
+          "Registro depois do protocolo de Harmonização Facial e Bioestimuladores",
       },
       {
         id: "case-ultraformer",
@@ -364,10 +370,12 @@ export const SITE_CONFIG = {
         timeline: "[Prazo de acompanhamento]",
         summary:
           "Acompanhamento de flacidez leve na região do pescoço e mandíbula com associação de ultrassom e hidratação dérmica.",
-        beforeImage: "",
-        beforeImageAlt: "Registro fotográfico antes do ultrassom microfocado",
-        afterImage: "",
-        afterImageAlt: "Registro fotográfico após o ultrassom microfocado",
+        beforeImage: imagens.resultado2Antes,
+        beforeImageAlt:
+          "Registro antes do protocolo de Ultrassom Microfocado e Skinbooster",
+        afterImage: imagens.resultado2Depois,
+        afterImageAlt:
+          "Registro depois do protocolo de Ultrassom Microfocado e Skinbooster",
       },
       {
         id: "case-laser",
@@ -376,10 +384,12 @@ export const SITE_CONFIG = {
         timeline: "[Número de sessões]",
         summary:
           "Evolução fotográfica após sessões voltadas para manchas solares e poros dilatados.",
-        beforeImage: "",
-        beforeImageAlt: "Registro fotográfico antes das sessões de laser",
-        afterImage: "",
-        afterImageAlt: "Registro fotográfico após as sessões de laser",
+        beforeImage: imagens.resultado3Antes,
+        beforeImageAlt:
+          "Registro antes do protocolo de Laser e Peeling Facial",
+        afterImage: imagens.resultado3Depois,
+        afterImageAlt:
+          "Registro depois do protocolo de Laser e Peeling Facial",
       },
     ] as ResultCase[],
   },

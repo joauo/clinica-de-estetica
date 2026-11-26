@@ -21,7 +21,10 @@ export function Header({ onQuickBook }: HeaderProps) {
   }, []);
 
   const closeMenu = () => setMobileMenuOpen(false);
-  const { brand, navigation } = SITE_CONFIG;
+  const { brand, navigation, results } = SITE_CONFIG;
+  const visibleLinks = navigation.links.filter(
+    (link) => results.mostrarAntesDepois || link.href !== "#resultados"
+  );
 
   const handleBookAction = () => {
     closeMenu();
@@ -69,7 +72,7 @@ export function Header({ onQuickBook }: HeaderProps) {
               : "text-[var(--color-beige-soft)]/95"
           }`}
         >
-          {navigation.links.map((link) => (
+          {visibleLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -130,7 +133,7 @@ export function Header({ onQuickBook }: HeaderProps) {
             aria-label="Menu de navegação móvel"
             className="flex flex-col text-[16px] text-[var(--color-text)]"
           >
-            {navigation.links.map((link) => (
+            {visibleLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
