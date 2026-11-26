@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG, type ProcedureCategory } from "../config";
+import { MediaSlot } from "./MediaSlot";
 
 interface ServicesSectionProps {
   onSelectProcedure: (procedureName: string) => void;
@@ -16,21 +17,13 @@ export function ServicesSection({ onSelectProcedure }: ServicesSectionProps) {
       ? services.items
       : services.items.filter((item) => item.category === selectedCategory);
 
-  const isFullTenGrid =
-    selectedCategory === "Todos" && filteredProcedures.length === 10;
-
   return (
-    <section id="servicos" className="bg-[var(--color-white)] py-16 lg:py-20">
+    <section id="servicos" className="bg-[var(--color-white)] py-20 lg:py-28">
       <div className="w-[min(100%-32px,1200px)] mx-auto">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
-          <div className="max-w-2xl">
-            <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
-              {services.eyebrow}
-            </p>
-            <h2 className="text-[34px] lg:text-[42px] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)]">
-              {services.title}
-            </h2>
-          </div>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <h2 className="text-[34px] lg:text-[42px] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)] max-w-2xl">
+            {services.title}
+          </h2>
 
           <div
             role="tablist"
@@ -59,22 +52,69 @@ export function ServicesSection({ onSelectProcedure }: ServicesSectionProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {filteredProcedures.map((procedure, idx) => {
-            const isFeaturedLastCard = isFullTenGrid && idx === 9;
+            const total = filteredProcedures.length;
+            const isSingle = total === 1;
+            const isFullWidthTail =
+              total === 9 && idx === 8;
 
-            if (isFeaturedLastCard) {
+            // Asymmetric span sequence: 7+5, 5+7, 6+6, 7+5, 12
+            let colSpanClass = "md:col-span-6";
+            let isHorizontal = false;
+            let imageOnRight = false;
+
+            if (isSingle || isFullWidthTail) {
+              colSpanClass = "md:col-span-12";
+              isHorizontal = true;
+              imageOnRight = true;
+            } else if (total === 2) {
+              colSpanClass = idx === 0 ? "md:col-span-7" : "md:col-span-5";
+              isHorizontal = idx === 0;
+            } else {
+              const slot = idx % 6;
+              if (slot === 0) {
+                colSpanClass = "md:col-span-7";
+                isHorizontal = true;
+                imageOnRight = false;
+              } else if (slot === 1) {
+                colSpanClass = "md:col-span-5";
+              } else if (slot === 2) {
+                colSpanClass = "md:col-span-5";
+              } else if (slot === 3) {
+                colSpanClass = "md:col-span-7";
+                isHorizontal = true;
+                imageOnRight = true;
+              } else {
+                colSpanClass = "md:col-span-6";
+              }
+            }
+
+            const cardStyleClass = procedure.featured
+              ? "bg-[var(--color-white)] border border-[var(--color-sand)] shadow-sm"
+              : "bg-[var(--color-surface)] border border-[var(--color-border)]";
+
+            if (isHorizontal) {
               return (
                 <article
                   key={procedure.id}
-                  className="md:col-span-2 lg:col-span-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[18px] overflow-hidden grid grid-cols-1 md:grid-cols-12 transition-colors hover:border-[var(--color-sand)]"
+                  className={`${colSpanClass} ${cardStyleClass} rounded-[16px] overflow-hidden grid grid-cols-1 sm:grid-cols-12 transition-colors hover:border-[var(--color-primary)]/70`}
                 >
-                  <div
-                    aria-hidden="true"
-                    className="md:col-span-4 aspect-[4/3] md:aspect-auto md:min-h-[220px] w-full bg-[var(--color-beige-soft)] border-b md:border-b-0 md:border-r border-[var(--color-border)]"
+                  <MediaSlot
+                    src={procedure.image}
+                    alt={procedure.imageAlt}
+                    className={`sm:col-span-5 min-h-[220px] sm:min-h-[250px] w-full bg-[var(--color-beige-soft)] ${
+                      imageOnRight
+                        ? "sm:order-2 border-b sm:border-b-0 sm:border-l border-[var(--color-border)]"
+                        : "border-b sm:border-b-0 sm:border-r border-[var(--color-border)]"
+                    }`}
                   />
 
-                  <div className="md:col-span-8 p-6 lg:p-8 flex flex-col justify-between gap-5">
+                  <div
+                    className={`sm:col-span-7 p-6 lg:p-7 flex flex-col justify-between gap-5 ${
+                      imageOnRight ? "sm:order-1" : ""
+                    }`}
+                  >
                     <div>
                       <div className="flex items-center gap-2 text-[13px] text-[var(--color-text-muted)] mb-2 tabular-nums">
                         <span>{procedure.category}</span>
@@ -86,7 +126,7 @@ export function ServicesSection({ onSelectProcedure }: ServicesSectionProps) {
                         {procedure.name}
                       </h3>
 
-                      <p className="text-[15px] leading-[1.65] text-[var(--color-text-secondary)] max-w-2xl">
+                      <p className="text-[15px] leading-[1.65] text-[var(--color-text-secondary)]">
                         {procedure.description}
                       </p>
                     </div>
@@ -113,11 +153,12 @@ export function ServicesSection({ onSelectProcedure }: ServicesSectionProps) {
             return (
               <article
                 key={procedure.id}
-                className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[18px] overflow-hidden flex flex-col transition-colors hover:border-[var(--color-sand)]"
+                className={`${colSpanClass} ${cardStyleClass} rounded-[16px] overflow-hidden flex flex-col transition-colors hover:border-[var(--color-primary)]/70`}
               >
-                <div
-                  aria-hidden="true"
-                  className="aspect-[4/3] w-full bg-[var(--color-beige-soft)] border-b border-[var(--color-border)]"
+                <MediaSlot
+                  src={procedure.image}
+                  alt={procedure.imageAlt}
+                  className="aspect-[16/10] w-full bg-[var(--color-beige-soft)] border-b border-[var(--color-border)]"
                 />
 
                 <div className="p-6 flex-1 flex flex-col justify-between gap-5">

@@ -87,7 +87,7 @@ export function ClinicLocationMap() {
   return (
     <div className="w-full h-full min-h-[280px] bg-[var(--color-white)]">
       <iframe
-        title={`Mapa de localização — ${brand.name}`}
+        title={`Mapa de localização · ${brand.name}`}
         src={contact.googleMapsEmbedUrl}
         loading="lazy"
         allowFullScreen

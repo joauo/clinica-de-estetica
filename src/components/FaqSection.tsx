@@ -13,14 +13,11 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="bg-[var(--color-surface)] py-16 lg:py-20 border-t border-[var(--color-border)]"
+      className="bg-[var(--color-surface)] py-16 lg:py-24 border-t border-[var(--color-border)]"
     >
       <div className="w-[min(100%-32px,1200px)] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div className="lg:col-span-4">
-            <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
-              {faq.eyebrow}
-            </p>
             <h2 className="text-[34px] lg:text-[40px] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)] mb-3">
               {faq.title}
             </h2>

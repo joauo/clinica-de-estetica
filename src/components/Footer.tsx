@@ -4,7 +4,7 @@ export function Footer() {
   const { brand, contact, footer, legal, navigation } = SITE_CONFIG;
 
   const directWhatsappUrl = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
-    `Olá! Gostaria de mais informações sobre os procedimentos da ${brand.name}.`
+    `Olá, gostaria de mais informações sobre os procedimentos da ${brand.name}.`
   )}`;
 
   return (

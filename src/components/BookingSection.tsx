@@ -45,25 +45,23 @@ export function BookingSection({
     setFormError(null);
 
     if (patientName.trim().length < 2) {
-      setFormError(
-        "Informe seu nome completo para personalizarmos o atendimento."
-      );
+      setFormError("Informe seu nome completo para enviar a mensagem.");
       return;
     }
 
     const digits = phone.replace(/\D/g, "");
     if (digits.length < 10) {
-      setFormError("Informe um telefone ou WhatsApp válido com DDD.");
+      setFormError("Informe um número de telefone ou WhatsApp com DDD.");
       return;
     }
 
     const lines = [
-      `Olá! Gostaria de agendar uma avaliação na ${brand.name}.`,
-      `• Nome: ${patientName.trim()}`,
-      `• WhatsApp: ${phone.trim()}`,
-      `• Procedimento de interesse: ${selectedProcedure}`,
-      `• Melhor período: ${period}`,
-      notes.trim() ? `• Observações: ${notes.trim()}` : "",
+      `Olá, gostaria de agendar uma avaliação na ${brand.name}.`,
+      `Nome: ${patientName.trim()}`,
+      `WhatsApp: ${phone.trim()}`,
+      `Procedimento: ${selectedProcedure}`,
+      `Período de preferência: ${period}`,
+      notes.trim() ? `Observações: ${notes.trim()}` : "",
     ]
       .filter(Boolean)
       .join("\n");
@@ -81,7 +79,7 @@ export function BookingSection({
   return (
     <section
       id="agendamento"
-      className="bg-[var(--color-white)] py-16 lg:py-20 border-t border-[var(--color-border)]"
+      className="bg-[var(--color-white)] py-20 lg:py-28 border-t border-[var(--color-border)]"
     >
       <div className="w-[min(100%-32px,1200px)] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
@@ -98,7 +96,7 @@ export function BookingSection({
               </p>
             </div>
 
-            <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[18px] p-6 space-y-4">
+            <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[16px] p-6 space-y-4">
               <div className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-[var(--color-primary-active)] shrink-0 mt-1" />
                 <div>
@@ -150,13 +148,13 @@ export function BookingSection({
               </div>
             </div>
 
-            <div className="flex-1 min-h-[280px] rounded-[18px] overflow-hidden border border-[var(--color-sand)] bg-[var(--color-surface)] flex">
+            <div className="flex-1 min-h-[280px] rounded-[16px] overflow-hidden border border-[var(--color-sand)] bg-[var(--color-surface)] flex">
               <ClinicLocationMap />
             </div>
           </div>
 
           <div className="lg:col-span-6 flex">
-            <div className="w-full h-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[20px] p-6 sm:p-8 flex flex-col">
+            <div className="w-full h-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[16px] p-6 sm:p-8 flex flex-col">
               <div className="mb-6">
                 <h3 className="text-[26px] font-semibold text-[var(--color-text)] mb-1.5">
                   {booking.formTitle}
@@ -232,7 +230,7 @@ export function BookingSection({
                         onChange={(e) => onProcedureChange(e.target.value)}
                         className="w-full min-h-[48px] px-4 py-2.5 bg-[var(--color-white)] border border-[var(--color-sand)] rounded-xl text-[15px] text-[var(--color-text)] focus:outline-2 focus:outline-[var(--color-primary)]"
                       >
-                        <optgroup label="Procedimentos Principais">
+                        <optgroup label="Procedimentos Faciais e Tecnologias">
                           {services.items.map((proc) => (
                             <option key={proc.id} value={proc.name}>
                               {proc.name}
@@ -283,7 +281,7 @@ export function BookingSection({
                       rows={5}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder="Conte brevemente o que gostaria de aprimorar ou sua disponibilidade de datas..."
+                      placeholder="Conte o que gostaria de avaliar na consulta ou os melhores dias da semana."
                       className="w-full flex-1 min-h-[150px] px-4 py-3 bg-[var(--color-white)] border border-[var(--color-sand)] rounded-xl text-[15px] leading-[1.6] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-2 focus:outline-[var(--color-primary)] resize-y"
                     />
                   </div>
@@ -300,7 +298,7 @@ export function BookingSection({
               </form>
 
               {submittedData && (
-                <div className="mt-6 rounded-2xl bg-[var(--color-white)] border border-[var(--color-sand)] p-5 space-y-4">
+                <div className="mt-6 rounded-[16px] bg-[var(--color-white)] border border-[var(--color-sand)] p-5 space-y-4">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-[var(--color-success)] shrink-0 mt-0.5" />
                     <div>
@@ -308,8 +306,7 @@ export function BookingSection({
                         Mensagem pronta para envio no WhatsApp
                       </p>
                       <p className="text-[13px] text-[var(--color-text-secondary)] mt-0.5">
-                        Caso a janela do WhatsApp não tenha sido aberta
-                        automaticamente, utilize o botão abaixo.
+                        Se a janela não abrir sozinha, use o botão abaixo.
                       </p>
                     </div>
                   </div>
@@ -326,7 +323,7 @@ export function BookingSection({
                     className="inline-flex items-center justify-center gap-2 min-h-[42px] px-5 py-2 rounded-full bg-[var(--color-primary)] text-[var(--color-text)] text-[14px] font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Abrir conversa no WhatsApp</span>
+                    <span>Falar no WhatsApp</span>
                   </a>
                 </div>
               )}
