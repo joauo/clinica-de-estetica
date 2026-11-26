@@ -39,9 +39,9 @@ export function AboutSection() {
       id="sobre"
       className="scroll-mt-16 bg-[var(--color-beige-soft)] py-16 lg:py-28 border-t border-[var(--color-border)]"
     >
-      <div className="w-[min(100%-32px,1200px)] mx-auto space-y-12 lg:space-y-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-6 lg:gap-0 lg:mb-6">
-          <div className="lg:col-start-1 lg:col-end-7 lg:row-start-1 relative">
+      <div className="w-[min(100%-32px,1200px)] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-6 lg:gap-0">
+          <div className="lg:col-start-1 lg:col-end-7 lg:row-start-1">
             <MediaSlot
               src={about.mainImage}
               alt={about.mainImageAlt}
@@ -49,24 +49,29 @@ export function AboutSection() {
               height={900}
               className="aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[460px] w-full rounded-[16px] bg-gradient-to-br from-[#EAE3D8] via-[#E3DCD2] to-[#DCD2C5] border border-[var(--color-sand)]"
             />
-
-            <MediaSlot
-              src={about.detailImage}
-              alt={about.detailImageAlt}
-              width={360}
-              height={270}
-              className="hidden lg:block w-44 aspect-[4/3] rounded-[16px] bg-[var(--color-champagne)] border border-[var(--color-sand)] shadow-sm absolute -bottom-6 left-6 z-20"
-            />
           </div>
 
           <div className="lg:col-start-6 lg:col-end-13 lg:row-start-1 relative z-10 bg-[var(--color-white)] border border-[var(--color-sand)] shadow-sm rounded-[16px] p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-6">
             <div>
-              <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
-                {about.eyebrow}
-              </p>
-              <h2 className="text-[clamp(1.85rem,3.2vw,2.5rem)] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)] mb-4">
-                {about.title}
-              </h2>
+              <div className="flex items-start justify-between gap-5 mb-4">
+                <div>
+                  <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
+                    {about.eyebrow}
+                  </p>
+                  <h2 className="text-[clamp(1.85rem,3.2vw,2.5rem)] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)]">
+                    {about.title}
+                  </h2>
+                </div>
+
+                <MediaSlot
+                  src={about.detailImage}
+                  alt={about.detailImageAlt}
+                  width={320}
+                  height={240}
+                  className="hidden lg:block w-32 xl:w-36 aspect-[4/3] rounded-[12px] bg-[var(--color-champagne)] border border-[var(--color-sand)] shadow-xs shrink-0"
+                />
+              </div>
+
               <p className="text-[16px] leading-[1.68] text-[var(--color-text-secondary)]">
                 {description}
               </p>
@@ -96,7 +101,7 @@ export function AboutSection() {
 
         <div
           ref={metricsRef}
-          className="border-y border-[var(--color-sand)] py-8 grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="mt-10 lg:mt-14 border-y border-[var(--color-sand)] py-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start"
         >
           {about.metrics.map((metric, idx) => (
             <div
@@ -115,7 +120,7 @@ export function AboutSection() {
           ))}
         </div>
 
-        <div className="bg-[var(--color-white)] border border-[var(--color-border)] rounded-[16px] p-6 lg:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
+        <div className="mt-10 lg:mt-14 bg-[var(--color-white)] border border-[var(--color-border)] rounded-[16px] p-6 lg:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
           <div className="md:col-span-4 lg:col-span-3">
             <MediaSlot
               src={about.professional.image}

@@ -55,90 +55,69 @@ export function ServicesSection({ onSelectProcedure }: ServicesSectionProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
           {filteredProcedures.map((procedure, idx) => {
             const total = filteredProcedures.length;
             const isSingle = total === 1;
             const isFullWidthTail = total === 9 && idx === 8;
+            const isFullWidthStrip = isSingle || isFullWidthTail;
 
+            // Asymmetric column widths per row: 7/5, 5/7, 6/6, 7/5
             let colSpanClass = "md:col-span-6";
-            let isHorizontal = false;
-            let imageOnRight = false;
-
-            if (isSingle || isFullWidthTail) {
+            if (isFullWidthStrip) {
               colSpanClass = "md:col-span-12";
-              isHorizontal = true;
-              imageOnRight = true;
             } else if (total === 2) {
               colSpanClass = idx === 0 ? "md:col-span-7" : "md:col-span-5";
-              isHorizontal = idx === 0;
             } else {
-              const slot = idx % 6;
-              if (slot === 0) {
+              const rowSlot = idx % 8;
+              if (rowSlot === 0 || rowSlot === 3 || rowSlot === 6) {
                 colSpanClass = "md:col-span-7";
-                isHorizontal = true;
-                imageOnRight = false;
-              } else if (slot === 1) {
+              } else if (rowSlot === 1 || rowSlot === 2 || rowSlot === 7) {
                 colSpanClass = "md:col-span-5";
-              } else if (slot === 2) {
-                colSpanClass = "md:col-span-5";
-              } else if (slot === 3) {
-                colSpanClass = "md:col-span-7";
-                isHorizontal = true;
-                imageOnRight = true;
               } else {
                 colSpanClass = "md:col-span-6";
               }
             }
 
-            const cardStyleClass = procedure.featured
-              ? "bg-[var(--color-white)] border border-[var(--color-sand)] shadow-sm"
-              : "bg-[var(--color-surface)] border border-[var(--color-border)]";
+            const unifiedCardClass =
+              "bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[16px] shadow-xs overflow-hidden transition-colors hover:border-[var(--color-primary)]/70";
 
-            if (isHorizontal) {
+            if (isFullWidthStrip) {
               return (
                 <article
                   key={procedure.id}
-                  className={`${colSpanClass} ${cardStyleClass} rounded-[16px] overflow-hidden grid grid-cols-1 md:grid-cols-12 transition-colors hover:border-[var(--color-primary)]/70`}
+                  className={`${colSpanClass} ${unifiedCardClass} grid grid-cols-1 md:grid-cols-12`}
                 >
                   <MediaSlot
                     src={procedure.image}
                     alt={procedure.imageAlt}
                     width={640}
                     height={480}
-                    className={`aspect-[16/10] md:aspect-auto md:col-span-5 md:h-full md:min-h-[210px] w-full bg-[var(--color-beige-soft)] ${
-                      imageOnRight
-                        ? "md:order-2 border-b md:border-b-0 md:border-l border-[var(--color-border)]"
-                        : "border-b md:border-b-0 md:border-r border-[var(--color-border)]"
-                    }`}
+                    className="aspect-[4/3] md:aspect-auto md:col-span-5 md:order-2 md:h-full md:min-h-[260px] w-full bg-[var(--color-beige-soft)] border-b md:border-b-0 md:border-l border-[var(--color-border)]"
                   />
 
-                  <div
-                    className={`md:col-span-7 p-6 lg:p-7 flex flex-col justify-center gap-4 ${
-                      imageOnRight ? "md:order-1" : ""
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center gap-2 text-[13px] text-[var(--color-text-muted)] mb-2 tabular-nums">
+                  <div className="md:col-span-7 md:order-1 p-6 flex flex-col gap-5">
+                    <div className="space-y-2.5">
+                      <div className="flex items-center gap-2 text-[13px] text-[var(--color-text-muted)] tabular-nums">
                         <span>{procedure.category}</span>
                         <span aria-hidden="true">·</span>
                         <span>{procedure.duration}</span>
                       </div>
 
-                      <h3 className="text-[26px] lg:text-[31px] font-semibold leading-[1.16] text-[var(--color-text)] mb-3">
+                      <h3 className="text-[24px] lg:text-[26px] font-semibold leading-[1.18] text-[var(--color-text)]">
                         {procedure.name}
                       </h3>
 
                       <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)]">
                         {procedure.description}
                       </p>
+
+                      <p className="text-[14px] text-[var(--color-text-muted)] pt-0.5">
+                        {procedure.highlight}
+                      </p>
                     </div>
 
-                    <div className="pt-3.5 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
-                      <span className="text-[13px] text-[var(--color-text-muted)]">
-                        {procedure.highlight}
-                      </span>
-
+                    <div className="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-end">
                       <button
                         type="button"
                         onClick={() => onSelectProcedure(procedure.name)}
@@ -156,38 +135,38 @@ export function ServicesSection({ onSelectProcedure }: ServicesSectionProps) {
             return (
               <article
                 key={procedure.id}
-                className={`${colSpanClass} ${cardStyleClass} rounded-[16px] overflow-hidden flex flex-col transition-colors hover:border-[var(--color-primary)]/70`}
+                className={`${colSpanClass} ${unifiedCardClass} h-full flex flex-col`}
               >
                 <MediaSlot
                   src={procedure.image}
                   alt={procedure.imageAlt}
                   width={640}
                   height={400}
-                  className="aspect-[16/10] w-full bg-[var(--color-beige-soft)] border-b border-[var(--color-border)]"
+                  className="aspect-[4/3] md:aspect-auto md:h-[260px] w-full bg-[var(--color-beige-soft)] border-b border-[var(--color-border)] shrink-0"
                 />
 
-                <div className="p-6 flex-1 flex flex-col justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-2 text-[13px] text-[var(--color-text-muted)] mb-2 tabular-nums">
+                <div className="p-6 flex-1 flex flex-col gap-5">
+                  <div className="space-y-2.5">
+                    <div className="flex items-center gap-2 text-[13px] text-[var(--color-text-muted)] tabular-nums">
                       <span>{procedure.category}</span>
                       <span aria-hidden="true">·</span>
                       <span>{procedure.duration}</span>
                     </div>
 
-                    <h3 className="text-[22px] lg:text-[24px] font-semibold leading-[1.2] text-[var(--color-text)] mb-2.5">
+                    <h3 className="text-[22px] lg:text-[24px] font-semibold leading-[1.2] text-[var(--color-text)]">
                       {procedure.name}
                     </h3>
 
                     <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)]">
                       {procedure.description}
                     </p>
+
+                    <p className="text-[14px] text-[var(--color-text-muted)] pt-0.5">
+                      {procedure.highlight}
+                    </p>
                   </div>
 
-                  <div className="pt-3.5 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
-                    <span className="text-[13px] text-[var(--color-text-muted)]">
-                      {procedure.highlight}
-                    </span>
-
+                  <div className="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-end">
                     <button
                       type="button"
                       onClick={() => onSelectProcedure(procedure.name)}
