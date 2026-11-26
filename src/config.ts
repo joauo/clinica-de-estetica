@@ -123,6 +123,7 @@ export const SITE_CONFIG = {
     instagramUrl: "https://instagram.com",
     email: "[contato@suaclinica.com.br]",
     address: "Avenida Paulista, 1374, Bela Vista",
+    city: "[Cidade]",
     cityState: "São Paulo/SP",
     zipCode: "CEP 01310-100",
     addressDetails: "Próximo ao Metrô Trianon-Masp",
@@ -165,21 +166,20 @@ export const SITE_CONFIG = {
     imageAlt:
       "Atendimento facial de estética avançada em consultório iluminado",
     eyebrow: "Estética Facial e Corporal",
-    titleLine1: "Estética de alta precisão",
-    titleLine2: "para a sua melhor versão",
+    titleTemplate: "Estética facial e corporal em {city}",
     description:
-      "Atendimento clínico individual com procedimentos faciais e corporais planejados conforme a anatomia de cada paciente.",
+      "Você passa por uma avaliação, entende cada etapa e só então escolhe o que fazer.",
     primaryCta: "Quero agendar",
     secondaryCta: "Conhecer procedimentos",
     stripItems: [
-      "Avaliação clínica individual",
+      "Avaliação individual",
       "Protocolos faciais e corporais",
       "Atendimento com hora marcada",
     ],
   },
 
   services: {
-    title: "Procedimentos faciais e tecnologias clínicas",
+    title: "Procedimentos faciais e tecnologias",
     ctaLabel: "Quero agendar",
     categories: [
       "Todos",
@@ -194,8 +194,8 @@ export const SITE_CONFIG = {
         category: "Faciais",
         duration: "60 min",
         description:
-          "Conjunto de técnicas indicado para quem busca equilibrar proporções do rosto respeitando os traços naturais.",
-        highlight: "[Protocolo facial da clínica]",
+          "Conjunto de técnicas para equilibrar as proporções do rosto, mantendo os seus traços.",
+        highlight: "[Protocolo facial]",
         image: imagens.harmonizacao,
         imageAlt: "Procedimento de harmonização facial em consultório",
         featured: true,
@@ -206,8 +206,8 @@ export const SITE_CONFIG = {
         category: "Faciais",
         duration: "30 min",
         description:
-          "Aplicação direcionada à musculatura facial para suavizar marcas de expressão em testa, glabela e região dos olhos.",
-        highlight: "[Marca utilizada pela clínica]",
+          "Suaviza as linhas de expressão da testa, entre as sobrancelhas e ao redor dos olhos.",
+        highlight: "",
         image: imagens.toxina,
         imageAlt: "Aplicação de toxina botulínica facial",
       },
@@ -217,7 +217,7 @@ export const SITE_CONFIG = {
         category: "Faciais",
         duration: "45 min",
         description:
-          "Uso de ácido hialurônico para repor volume ou definir contornos em lábios, olheiras, malar e mento.",
+          "Ácido hialurônico para devolver volume ou definir o contorno de lábios, olheiras, maçãs do rosto e queixo.",
         highlight: "[Linha de preenchedores utilizada]",
         image: imagens.preenchimento,
         imageAlt: "Preenchimento labial e facial com ácido hialurônico",
@@ -228,8 +228,8 @@ export const SITE_CONFIG = {
         category: "Faciais",
         duration: "50 min",
         description:
-          "Substâncias injetáveis indicadas para pacientes que desejam tratar flacidez leve a moderada no rosto ou pescoço.",
-        highlight: "[Bioestimulador utilizado na clínica]",
+          "Estimulam a pele a produzir colágeno. Indicado para quem quer tratar flacidez leve a moderada no rosto ou no pescoço.",
+        highlight: "[Bioestimulador utilizado]",
         image: imagens.bioestimuladores,
         imageAlt: "Tratamento com bioestimuladores de colágeno",
       },
@@ -239,8 +239,8 @@ export const SITE_CONFIG = {
         category: "Faciais",
         duration: "40 min",
         description:
-          "Microinjeções de ácido hialurônico fluido voltadas para hidratação profunda da pele de rosto, pescoço e colo.",
-        highlight: "Hidratação dérmica",
+          "Hidratação profunda com ácido hialurônico fluido, indicada para melhorar a maciez e o viço de rosto, pescoço e colo.",
+        highlight: "Hidratação profunda",
         image: imagens.skinbooster,
         imageAlt: "Procedimento de hidratação profunda Skinbooster",
       },
@@ -250,7 +250,7 @@ export const SITE_CONFIG = {
         category: "Faciais",
         duration: "60 min",
         description:
-          "Higienização facial associada a renovação química para quem precisa controlar oleosidade, poros e manchas superficiais.",
+          "Higienização e renovação leve da pele, indicada para quem quer controlar oleosidade, poros e manchas superficiais.",
         highlight: "[Ativos e peelings aplicados]",
         image: imagens.limpeza,
         imageAlt: "Limpeza de pele e peeling facial em consultório",
@@ -261,7 +261,7 @@ export const SITE_CONFIG = {
         category: "Tecnologias",
         duration: "60 min",
         description:
-          "Equipamento de ultrassom focado indicado para tratar flacidez de face e papada sem cortes nem afastamento.",
+          "Ultrassom focado para tratar flacidez no rosto e na papada, sem cirurgia.",
         highlight: "[Equipamento e ponteiras disponíveis]",
         image: imagens.ultraformer,
         imageAlt: "Atendimento com ultrassom microfocado facial",
@@ -273,8 +273,8 @@ export const SITE_CONFIG = {
         category: "Tecnologias",
         duration: "45 min",
         description:
-          "Tecnologia luminosa voltada a pacientes com queixas de manchas, pequenos vasos, cicatrizes de acne ou textura irregular.",
-        highlight: "[Modelo do laser da clínica]",
+          "Aplicação de luz em sessão programada para tratar manchas, pequenos vasos, marcas de acne e irregularidades na pele.",
+        highlight: "[Modelo do laser]",
         image: imagens.laser,
         imageAlt: "Sessão com tecnologia a laser dermatológico",
       },
@@ -284,8 +284,8 @@ export const SITE_CONFIG = {
         category: "Avaliação",
         duration: "45 min",
         description:
-          "Consulta presencial para examinar a pele, ouvir suas prioridades e definir a ordem mais segura de tratamentos.",
-        highlight: "Plano clínico individual",
+          "Consulta presencial para examinar a pele, ouvir o que incomoda e definir a ordem mais segura de cuidados.",
+        highlight: "Plano individual",
         image: imagens.avaliacao,
         imageAlt: "Consulta de avaliação estética individual",
       },
@@ -296,9 +296,9 @@ export const SITE_CONFIG = {
     eyebrow: "Cuidados Corporais",
     title: "Tratamentos corporais",
     subtitleTemplate:
-      "Na {clinicName}, o atendimento corporal combina avaliação clínica e [equipamentos e tecnologias utilizados pela clínica].",
+      "Na {clinicName}, o atendimento corporal combina avaliação presencial e [equipamentos e tecnologias utilizados].",
     featuredImage: imagens.corporalDestaque,
-    featuredImageAlt: "Atendimento de estética corporal na clínica",
+    featuredImageAlt: "Atendimento de estética corporal",
     ctaLabel: "Quero agendar",
     items: [
       {
@@ -329,7 +329,7 @@ export const SITE_CONFIG = {
         id: "depilacao-laser",
         name: "Depilação a laser",
         description:
-          "Sessões programadas para redução gradual dos pelos em diferentes fototipos com [tecnologia de laser da clínica].",
+          "Sessões programadas para redução gradual dos pelos em diferentes fototipos com [tecnologia de laser utilizada].",
       },
       {
         id: "estetica-masculina",
@@ -344,18 +344,18 @@ export const SITE_CONFIG = {
     mostrarAntesDepois: true,
     title: "Antes e depois com foco em naturalidade",
     subtitle:
-      "Registros fotográficos padronizados que acompanham a evolução clínica em diferentes etapas do tratamento.",
+      "Registros fotográficos padronizados que acompanham a evolução em diferentes etapas do tratamento.",
     beforeLabel: "Antes",
     afterLabel: "Depois",
     disclaimer: "Os resultados variam de pessoa para pessoa.",
     cases: [
       {
         id: "case-harmonizacao",
-        title: "Equilíbrio de terço médio e contorno",
+        title: "Equilíbrio do rosto e contorno",
         protocol: "Harmonização Facial · Bioestimuladores",
         timeline: "[Prazo de acompanhamento]",
         summary:
-          "Registro de preenchimento estrutural e bioestímulo em paciente com queixa de perda de sustentação facial.",
+          "Fotos padronizadas, no mesmo ângulo e com a mesma luz, para acompanhar a evolução.",
         beforeImage: imagens.resultado1Antes,
         beforeImageAlt:
           "Registro antes do protocolo de Harmonização Facial e Bioestimuladores",
@@ -369,7 +369,7 @@ export const SITE_CONFIG = {
         protocol: "Ultrassom Microfocado · Skinbooster",
         timeline: "[Prazo de acompanhamento]",
         summary:
-          "Acompanhamento de flacidez leve na região do pescoço e mandíbula com associação de ultrassom e hidratação dérmica.",
+          "Registros feitos antes e após as sessões para acompanhar a firmeza do contorno do rosto e do pescoço.",
         beforeImage: imagens.resultado2Antes,
         beforeImageAlt:
           "Registro antes do protocolo de Ultrassom Microfocado e Skinbooster",
@@ -383,7 +383,7 @@ export const SITE_CONFIG = {
         protocol: "Laser · Peeling Facial",
         timeline: "[Número de sessões]",
         summary:
-          "Evolução fotográfica após sessões voltadas para manchas solares e poros dilatados.",
+          "Imagens comparativas em condições iguais de luz para observar a textura e o tom da pele.",
         beforeImage: imagens.resultado3Antes,
         beforeImageAlt:
           "Registro antes do protocolo de Laser e Peeling Facial",
@@ -395,24 +395,24 @@ export const SITE_CONFIG = {
   },
 
   about: {
-    eyebrow: "Sobre a Clínica",
-    title: "Cuidado clínico com tempo para ouvir você",
+    eyebrow: "Sobre nós",
+    title: "Atendimento com tempo para ouvir você",
     descriptionTemplate:
       "A {clinicName} atende pacientes que buscam procedimentos faciais e corporais feitos sem pressa, com explicações claras sobre cada etapa, indicações reais e limites seguros de cada técnica.",
     pillars: [
-      "[Protocolos clínicos e marcas utilizadas pela clínica].",
+      "[Protocolos e marcas utilizadas nos atendimentos].",
       "[Equipamentos com registro na ANVISA e manutenção periódica].",
       "Atendimento com hora marcada e retorno de acompanhamento após o procedimento.",
     ],
     mainImage: imagens.sobre,
-    mainImageAlt: "Ambiente de atendimento da clínica",
+    mainImageAlt: "Ambiente de atendimento",
     detailImage: imagens.sobreDetalhe,
-    detailImageAlt: "Detalhe da recepção e consultório da clínica",
+    detailImageAlt: "Detalhe da recepção e consultório",
     metrics: [
       {
         id: "years",
         value: "[+X] anos",
-        label: "De atuação clínica em estética",
+        label: "De experiência em estética",
       },
       {
         id: "patients",
@@ -428,15 +428,15 @@ export const SITE_CONFIG = {
     professional: {
       eyebrow: "Responsável Técnica",
       image: imagens.profissional,
-      imageAlt: "Foto da profissional responsável pela clínica",
+      imageAlt: "Foto da profissional responsável",
       name: "[Nome]",
       credentials: "[Formação/Registro]",
-      bio: "[Mini-bio curta de até 3 linhas apresentando a formação acadêmica, área de atuação em estética facial e corporal e a conduta clínica adotada nas consultas.]",
+      bio: "[Mini-bio curta de até 3 linhas apresentando a formação acadêmica, área de atuação em estética facial e corporal e a forma de atendimento adotada nas consultas.]",
     },
   },
 
   testimonials: {
-    title: "Relatos de pacientes atendidas na clínica",
+    title: "Relatos de pacientes atendidas",
     subtitle:
       "Comentários compartilhados sobre o atendimento na recepção, a consulta de avaliação e o pós-procedimento.",
     items: [
@@ -492,7 +492,7 @@ export const SITE_CONFIG = {
         id: "faq-valores",
         question: "Como funcionam os valores e as formas de pagamento?",
         answer:
-          "Os valores dependem da quantidade de sessões e produtos indicados para o seu caso, por isso o orçamento completo e [as formas de pagamento aceitas pela clínica] são informados na avaliação.",
+          "Os valores dependem da quantidade de sessões e produtos indicados para o seu caso, por isso o orçamento completo e [as formas de pagamento aceitas] são informados na avaliação.",
       },
       {
         id: "faq-avaliacao",
@@ -504,7 +504,7 @@ export const SITE_CONFIG = {
         id: "faq-seguranca",
         question: "Os produtos e aparelhos têm procedência garantida?",
         answer:
-          "Trabalhamos com [marcas e fornecedores utilizados pela clínica], insumos com registro na ANVISA e equipamentos calibrados periodicamente conforme normas sanitárias.",
+          "Trabalhamos com [marcas e fornecedores selecionados], insumos com registro na ANVISA e equipamentos calibrados periodicamente conforme normas sanitárias.",
       },
     ] as FaqItem[],
   },
@@ -522,7 +522,7 @@ export const SITE_CONFIG = {
     },
     formTitle: "Solicitar horário",
     formSubtitle:
-      "Os campos abaixo montam a mensagem pronta para você enviar no WhatsApp da clínica.",
+      "Os campos abaixo montam a mensagem pronta para você enviar pelo WhatsApp.",
     submitLabel: "Falar no WhatsApp",
     fieldLabels: {
       name: "Nome completo",
@@ -556,7 +556,7 @@ export const SITE_CONFIG = {
 
   footer: {
     description:
-      "Protocolos faciais e corporais conduzidos com critério clínico e hora marcada.",
+      "Protocolos faciais e corporais com acompanhamento e hora marcada.",
     navHeading: "Navegação",
     contactHeading: "Contato",
     serviceHeading: "Atendimento",

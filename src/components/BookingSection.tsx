@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { SITE_CONFIG } from "../config";
 import { ClinicLocationMap } from "./ClinicLocationMap";
+import { Reveal } from "./Reveal";
 
 interface BookingSectionProps {
   selectedProcedure: string;
@@ -112,7 +113,10 @@ export function BookingSection({
     >
       <div className="w-[min(100%-32px,1200px)] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          <div className="lg:col-span-6 flex flex-col justify-between gap-6">
+          <Reveal
+            className="lg:col-span-6 flex flex-col justify-between gap-6"
+            staggerIndex={0}
+          >
             <div>
               <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
                 {booking.eyebrow}
@@ -192,9 +196,9 @@ export function BookingSection({
             <div className="flex-1 min-h-[280px] rounded-[16px] overflow-hidden border border-[var(--color-sand)] bg-[var(--color-surface)] flex">
               <ClinicLocationMap />
             </div>
-          </div>
+          </Reveal>
 
-          <div className="lg:col-span-6 flex">
+          <Reveal className="lg:col-span-6 flex" staggerIndex={1}>
             <div className="w-full h-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[16px] p-6 sm:p-8 flex flex-col">
               <div className="mb-6">
                 <h3 className="text-[26px] font-semibold text-[var(--color-text)] mb-1.5">
@@ -416,7 +420,7 @@ export function BookingSection({
                 </div>
               )}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "../config";
 import { MediaSlot } from "./MediaSlot";
+import { Reveal } from "./Reveal";
 
 interface BodyTreatmentsSectionProps {
   onSelectProcedure: (procedureName: string) => void;
@@ -21,20 +22,22 @@ export function BodyTreatmentsSection({
       className="scroll-mt-16 bg-[var(--color-surface)] py-16 lg:py-24 border-t border-[var(--color-border)]"
     >
       <div className="w-[min(100%-32px,1200px)] mx-auto">
-        <div className="max-w-2xl mb-10 lg:mb-12">
-          <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
-            {bodyTreatments.eyebrow}
-          </p>
-          <h2 className="text-[clamp(1.85rem,3.4vw,2.625rem)] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)] mb-3">
-            {bodyTreatments.title}
-          </h2>
-          <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)]">
-            {subtitle}
-          </p>
-        </div>
+        <Reveal>
+          <div className="max-w-2xl mb-10 lg:mb-12">
+            <p className="text-[13px] tracking-[0.06em] text-[var(--color-text-muted)] mb-2">
+              {bodyTreatments.eyebrow}
+            </p>
+            <h2 className="text-[clamp(1.85rem,3.4vw,2.625rem)] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)] mb-3">
+              {bodyTreatments.title}
+            </h2>
+            <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)]">
+              {subtitle}
+            </p>
+          </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          <div className="lg:col-span-4">
+          <Reveal className="lg:col-span-4" staggerIndex={0}>
             <MediaSlot
               src={bodyTreatments.featuredImage}
               alt={bodyTreatments.featuredImageAlt}
@@ -42,9 +45,12 @@ export function BodyTreatmentsSection({
               height={800}
               className="aspect-[4/3] sm:aspect-[4/5] w-full rounded-[16px] bg-gradient-to-br from-[#EAE3D8] via-[#E3DCD2] to-[#DCD2C5] border border-[var(--color-sand)]"
             />
-          </div>
+          </Reveal>
 
-          <div className="lg:col-span-8 border-t border-[var(--color-sand)]">
+          <Reveal
+            className="lg:col-span-8 border-t border-[var(--color-sand)]"
+            staggerIndex={1}
+          >
             {bodyTreatments.items.map((item) => (
               <button
                 key={item.id}
@@ -71,7 +77,7 @@ export function BodyTreatmentsSection({
                 </div>
               </button>
             ))}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

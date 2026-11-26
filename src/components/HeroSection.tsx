@@ -8,7 +8,8 @@ interface HeroSectionProps {
 
 export function HeroSection({ onQuickBook }: HeroSectionProps) {
   const [imageFailed, setImageFailed] = useState(false);
-  const { hero } = SITE_CONFIG;
+  const { hero, contact } = SITE_CONFIG;
+  const heroTitle = hero.titleTemplate.replace("{city}", contact.city);
   const customHero = imagens.hero.trim();
   const heroSrc = customHero || hero.image;
   const heroSrcSet =
@@ -44,14 +45,13 @@ export function HeroSection({ onQuickBook }: HeroSectionProps) {
       />
 
       <div className="relative z-10 w-[min(100%-32px,1200px)] mx-auto flex-1 flex flex-col justify-center pt-20 pb-8 sm:pb-10">
-        <div className="max-w-3xl w-full mx-auto text-center flex flex-col items-center">
+        <div className="hero-fade-in max-w-3xl w-full mx-auto text-center flex flex-col items-center">
           <p className="text-[13px] sm:text-[14px] tracking-[0.06em] text-[var(--color-champagne)] mb-3">
             {hero.eyebrow}
           </p>
 
           <h1 className="text-[clamp(2.25rem,5vw,4.15rem)] font-semibold leading-[1.06] tracking-[-0.015em] text-[var(--color-white)] mb-4 sm:mb-5">
-            <span className="block">{hero.titleLine1}</span>
-            <span className="block sm:whitespace-nowrap">{hero.titleLine2}</span>
+            {heroTitle}
           </h1>
 
           <p className="text-[16px] sm:text-[18px] leading-[1.65] text-[var(--color-beige-soft)] max-w-[52ch] mx-auto mb-8 sm:mb-10">

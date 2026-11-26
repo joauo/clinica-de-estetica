@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { SITE_CONFIG } from "../config";
 import { MediaSlot } from "./MediaSlot";
+import { Reveal } from "./Reveal";
 
 export function AboutSection() {
   const { about, brand } = SITE_CONFIG;
@@ -40,7 +41,8 @@ export function AboutSection() {
       className="scroll-mt-16 bg-[var(--color-beige-soft)] py-16 lg:py-28 border-t border-[var(--color-border)]"
     >
       <div className="w-[min(100%-32px,1200px)] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-6 lg:gap-0">
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-6 lg:gap-0">
           <div className="lg:col-start-1 lg:col-end-7 lg:row-start-1">
             <MediaSlot
               src={about.mainImage}
@@ -97,7 +99,8 @@ export function AboutSection() {
               ))}
             </ul>
           </div>
-        </div>
+          </div>
+        </Reveal>
 
         <div
           ref={metricsRef}
@@ -107,7 +110,7 @@ export function AboutSection() {
             <div
               key={metric.id}
               data-visible={metricsVisible}
-              style={{ transitionDelay: `${idx * 70}ms` }}
+              style={{ transitionDelay: `${(idx % 3) * 60}ms` }}
               className="reveal-metric md:border-r md:last:border-r-0 border-[var(--color-sand)] md:pr-6"
             >
               <p className="font-serif-display text-[38px] lg:text-[46px] font-semibold leading-none text-[var(--color-brown)] tabular-nums">
@@ -120,7 +123,8 @@ export function AboutSection() {
           ))}
         </div>
 
-        <div className="mt-10 lg:mt-14 bg-[var(--color-white)] border border-[var(--color-border)] rounded-[16px] p-6 lg:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
+        <Reveal>
+          <div className="card-hover-lift mt-10 lg:mt-14 bg-[var(--color-white)] border border-[var(--color-border)] rounded-[16px] p-6 lg:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
           <div className="md:col-span-4 lg:col-span-3">
             <MediaSlot
               src={about.professional.image}
@@ -147,7 +151,8 @@ export function AboutSection() {
               {about.professional.bio}
             </p>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

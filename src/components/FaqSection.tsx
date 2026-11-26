@@ -1,6 +1,7 @@
 import { useRef, useState, type KeyboardEvent } from "react";
 import { ChevronDown } from "lucide-react";
 import { SITE_CONFIG } from "../config";
+import { Reveal } from "./Reveal";
 
 export function FaqSection() {
   const { faq } = SITE_CONFIG;
@@ -41,16 +42,16 @@ export function FaqSection() {
     >
       <div className="w-[min(100%-32px,1200px)] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          <div className="lg:col-span-4">
+          <Reveal className="lg:col-span-4" staggerIndex={0}>
             <h2 className="text-[clamp(1.85rem,3.2vw,2.5rem)] font-semibold leading-[1.12] tracking-[-0.015em] text-[var(--color-text)] mb-3">
               {faq.title}
             </h2>
             <p className="text-[16px] leading-[1.65] text-[var(--color-text-secondary)]">
               {faq.subtitle}
             </p>
-          </div>
+          </Reveal>
 
-          <div className="lg:col-span-8 space-y-3">
+          <Reveal className="lg:col-span-8 space-y-3" staggerIndex={1}>
             {faq.items.map((item, idx) => {
               const isOpen = openId === item.id;
               const triggerId = `faq-trigger-${item.id}`;
@@ -79,7 +80,7 @@ export function FaqSection() {
                       </span>
                       <ChevronDown
                         aria-hidden="true"
-                        className={`w-5 h-5 text-[var(--color-brown)] shrink-0 transition-transform duration-200 ${
+                        className={`w-5 h-5 text-[var(--color-brown)] shrink-0 transition-transform duration-300 ease-out ${
                           isOpen ? "rotate-180" : ""
                         }`}
                       />
@@ -90,17 +91,25 @@ export function FaqSection() {
                     id={panelId}
                     role="region"
                     aria-labelledby={triggerId}
-                    hidden={!isOpen}
-                    className="px-5 sm:px-6 pb-5 pt-1 border-t border-[var(--color-border)]/70"
+                    aria-hidden={!isOpen}
+                    className={`grid transition-[grid-template-rows,opacity,visibility] duration-300 ease-out ${
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100 visible"
+                        : "grid-rows-[0fr] opacity-0 invisible"
+                    }`}
                   >
-                    <p className="text-[16px] leading-[1.68] text-[var(--color-text-secondary)] pt-3">
-                      {item.answer}
-                    </p>
+                    <div className="overflow-hidden">
+                      <div className="px-5 sm:px-6 pb-5 pt-1 border-t border-[var(--color-border)]/70">
+                        <p className="text-[16px] leading-[1.68] text-[var(--color-text-secondary)] pt-3">
+                          {item.answer}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
             })}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
